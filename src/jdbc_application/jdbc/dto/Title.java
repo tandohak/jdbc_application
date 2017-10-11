@@ -1,6 +1,11 @@
 package jdbc_application.jdbc.dto;
 
 public class Title {
+	@Override
+	public String toString() {
+		return String.format("%s, %s", titleNo, titleName);
+	}
+
 	private int titleNo;
 	private String titleName;
 	
