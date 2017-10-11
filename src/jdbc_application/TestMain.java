@@ -36,6 +36,16 @@ public class TestMain {
 		
 		item.setManager(new Employee(3426));
 		item.setSalary(2500000);
+		
+		employeeUpdate(item);
+		employeeSelectByNo(item);
+		
+		employeeDelete(item);
+		employeeSelectAll();
+		
+	}
+
+	private static void employeeUpdate(Employee item) {
 		try {
 			EmployeeDao.getInstance().updateItem(item);
 			JOptionPane.showMessageDialog(null, "사원이 수정되었습니다.");
@@ -46,11 +56,6 @@ public class TestMain {
 			}
 			e.printStackTrace();
 		}
-		employeeSelectByNo(item);
-		
-		employeeDelete(item);
-		employeeSelectAll();
-		
 	}
 
 	private static void employeeSelectByNo(Employee item) {
