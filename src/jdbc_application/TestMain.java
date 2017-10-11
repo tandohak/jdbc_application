@@ -1,13 +1,91 @@
 package jdbc_application;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import jdbc_application.dao.DepartmentDao;
 import jdbc_application.jdbc.DBCon;
 import jdbc_application.jdbc.JdbcUtil;
+import jdbc_application.jdbc.dto.Department;
 
 public class TestMain {
 
 	public static void main(String[] args) {
+//		testDBCon();
+		
+		Department dept = new Department(4,"마케팅",10);
+		
+		testInsert(dept);
+
+		testListAll(dept);
+		dept.setDeptName("마케팅2");
+		
+		testUpdate(dept);
+		testDeptNo(dept);	
+		
+		testDelte(dept);		
+		testListAll(dept);
+
+	}
+
+	private static void testUpdate(Department dept) {
+		try {
+			DepartmentDao.getInstance().updateItem(dept);
+			JOptionPane.showMessageDialog(null, "부서가 수정되었습니다.");
+		} catch (SQLException e) {
+			System.err.printf("%s - %s%n",e.getErrorCode(),e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	private static void testDeptNo(Department dept) {
+		try {
+			Department test = DepartmentDao.getInstance().selectItemByNo(dept);
+			System.out.println(test);
+		} catch (SQLException e) {
+			System.err.printf("%s - %s%n",e.getErrorCode(),e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	private static void testListAll(Department dept) {
+		try {
+			List<Department> lists = DepartmentDao.getInstance().selectItemByAll();
+			for(Department d : lists){
+				System.out.println(d);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testDelte(Department dept) {
+		try {
+			DepartmentDao.getInstance().deleteItem(dept);
+			JOptionPane.showMessageDialog(null, "부서가 삭제되었습니다.");
+		} catch (SQLException e) {
+			System.err.printf("%s - %s%n",e.getErrorCode(),e.getMessage());
+			JOptionPane.showMessageDialog(null, "삭제 실패");
+			e.printStackTrace();
+		}
+	}
+
+	private static void testInsert(Department dept) {
+		try {
+			DepartmentDao.getInstance().insertItem(dept);
+			JOptionPane.showMessageDialog(null, "부서가 추가되었습니다.");
+		} catch (SQLException e) {
+			System.err.printf("%s - %s%n",e.getErrorCode(),e.getMessage());
+			if(e.getErrorCode() == 1062){
+				JOptionPane.showMessageDialog(null, "부서번호가 중복");
+			}
+		}
+	}
+
+	private static void testDBCon() {
 		DBCon dbCon = DBCon.getInstance();		
 		
 		Connection connection = dbCon.getConnection();
