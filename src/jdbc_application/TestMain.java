@@ -7,10 +7,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import jdbc_application.dao.DepartmentDao;
+import jdbc_application.dao.EmployeeDao;
 import jdbc_application.dao.TitleDao;
 import jdbc_application.jdbc.DBCon;
 import jdbc_application.jdbc.JdbcUtil;
 import jdbc_application.jdbc.dto.Department;
+import jdbc_application.jdbc.dto.Employee;
 import jdbc_application.jdbc.dto.Title;
 
 public class TestMain {
@@ -26,8 +28,71 @@ public class TestMain {
 	}
 
 	private static void testEmployeeDao() {
+		Employee item = new Employee(4444, "아이유", new Title(5), new Employee(4377), 1500000, new Department(5));
 		
 		
+		employeeInsert(item);
+		employeeSelectByNo(item);
+		
+		item.setManager(new Employee(3426));
+		item.setSalary(2500000);
+		try {
+			EmployeeDao.getInstance().updateItem(item);
+			JOptionPane.showMessageDialog(null, "사원이 수정되었습니다.");
+		} catch (SQLException e) {
+			System.err.printf("%s - %s%n",e.getErrorCode(),e.getMessage());
+			if(e.getErrorCode() == 1062){
+				JOptionPane.showMessageDialog(null, "수정 실패");
+			}
+			e.printStackTrace();
+		}
+		employeeSelectByNo(item);
+		
+		employeeDelete(item);
+		employeeSelectAll();
+		
+	}
+
+	private static void employeeSelectByNo(Employee item) {
+		try {
+			System.out.println(EmployeeDao.getInstance().selectItemByNo(item));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void employeeSelectAll() {
+		try {
+			List<Employee> lists = EmployeeDao.getInstance().selectItemByAll();
+			for(Employee emp : lists){
+				System.out.println(emp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void employeeDelete(Employee item) {
+		try {
+			EmployeeDao.getInstance().deleteItem(item);
+			JOptionPane.showMessageDialog(null, "사원이 삭제되었습니다.");
+		} catch (SQLException e) {
+			System.err.printf("%s - %s%n",e.getErrorCode(),e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	private static void employeeInsert(Employee item) {
+		try {
+			EmployeeDao.getInstance().insertItem(item);
+			JOptionPane.showMessageDialog(null, "사원이 추가되었습니다.");
+		} catch (SQLException e) {
+			System.err.printf("%s - %s%n",e.getErrorCode(),e.getMessage());
+			if(e.getErrorCode() == 1062){
+				JOptionPane.showMessageDialog(null, "사원번호 중복");
+			}
+			e.printStackTrace();
+		}
 	}
 
 	private static void testTitleDao() {

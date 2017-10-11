@@ -6,6 +6,10 @@ public class Title {
 		return String.format("%s, %s", titleNo, titleName);
 	}
 
+	public Title(int titleNo) {
+		this.titleNo = titleNo;
+	}
+
 	private int titleNo;
 	private String titleName;
 	

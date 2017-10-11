@@ -10,3 +10,8 @@ delete from title where titleno = 6;
 
 
 update title set titlename = "test" where titleno = 6;
+
+select * from employee;
+delete from employee where empno = 4444;
+
+update employee set  title = 2 , manager = 1003, salary = 2500000, dno = 1 where empno = 4444

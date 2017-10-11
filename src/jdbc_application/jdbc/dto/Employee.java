@@ -8,6 +8,10 @@ public class Employee {
 	private int salary;
 	private Department dno;
 		
+	public Employee(int empno) {
+		this.empno = empno;
+	}
+	
 	public Employee() {
 		// TODO Auto-generated constructor stub
 	}
