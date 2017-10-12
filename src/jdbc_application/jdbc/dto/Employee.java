@@ -12,6 +12,13 @@ public class Employee {
 		this.empno = empno;
 	}
 	
+	public Employee(int empno, String empname) {
+		this.empno = empno;
+		this.empname = empname;
+	}
+
+
+
 	public Employee() {
 		// TODO Auto-generated constructor stub
 	}
