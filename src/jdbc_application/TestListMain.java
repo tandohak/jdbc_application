@@ -18,7 +18,7 @@ public class TestListMain {
 	public static void main(String[] args) {
 		JFrame jf = new JFrame();
 		
-		AbstractList ld = new ListDepartment();
+		AbstractList ld = new ListEmployee();
 		JButton btn = new JButton("테스트");
 		btn.addActionListener(new ActionListener() {
 			

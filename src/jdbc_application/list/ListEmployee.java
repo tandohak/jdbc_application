@@ -2,6 +2,10 @@ package jdbc_application.list;
 
 import javax.swing.SwingConstants;
 
+import jdbc_application.jdbc.dto.Department;
+import jdbc_application.jdbc.dto.Employee;
+import jdbc_application.jdbc.dto.Title;
+
 public class ListEmployee extends AbstractList {
 
 	@Override
@@ -19,9 +23,9 @@ public class ListEmployee extends AbstractList {
 	@Override
 	protected Object[][] getData() {
 		Object[][] data = {
-				{1,"이성래","사장",null,4000000,"1"},
-				{1,"이성래","사장",null,4000000,"1"},
-				{1,"이성래","사장",null,4000000,"1"}				
+				{1,"이성래","사장",2,4000000,"1"},
+				{1,"이성래","사장",2,4000000,"1"},
+				{1,"이성래","사장",2,4000000,"1"}				
 		};
 		return data;
 	}
@@ -31,9 +35,12 @@ public class ListEmployee extends AbstractList {
 		int seletedIndex =table.getSelectedRow();
 		int empNo = (int)table.getValueAt(seletedIndex, 0);
 		String empName =(String)table.getValueAt(seletedIndex, 1);
-		int floor = (int)table.getValueAt(seletedIndex, 2);
+		Title title = new Title((int)table.getValueAt(seletedIndex, 2));
+		Employee manager = new Employee((int)table.getValueAt(seletedIndex, 3));
+		int salary = (int)table.getValueAt(seletedIndex, 4);
+		Department dno = new Department((int)table.getValueAt(seletedIndex, 5));
 		
-		return null;
+		return new Employee(empNo, empName, title, manager, salary, dno);
 	}
 
 }
