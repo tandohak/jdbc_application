@@ -19,6 +19,28 @@ public class Employee {
 
 
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + empno;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (empno != other.empno)
+			return false;
+		return true;
+	}
+
 	public Employee() {
 		// TODO Auto-generated constructor stub
 	}
