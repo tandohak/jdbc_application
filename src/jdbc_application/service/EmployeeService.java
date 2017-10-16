@@ -73,6 +73,16 @@ public class EmployeeService {
 		return null;
 	}
 	
+	public List<Employee> selectEmployeeByDno(Department dept){
+		try {
+			return EmployeeDao.getInstance().selectItemByDeptNo(dept);
+		} catch (SQLException e) {
+			showMessage(e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public Department selectDepartmentByNo(Department dept){
 		try {
 			return deptDao.selectItemByNo(dept);

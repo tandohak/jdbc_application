@@ -89,7 +89,24 @@ public class EmployeeDao implements SqlDao<Employee> {
 		
 	}
 
-	
+	public List<Employee> selectItemByDeptNo(Department dept) throws SQLException{
+		List<Employee> lists = new ArrayList<>();
+		String sql = "select * from employee where dno = ?";
+		Connection con = DBCon.getInstance().getConnection();
+		
+		try(PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setInt(1, dept.getDeptNo());
+			
+			try(ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()){
+					lists.add(getEmployee(rs));
+				}
+			}
+			
+		}
+		return lists ;
+	}
 
 	@Override
 	public List<Employee> selectItemByAll() throws SQLException {
@@ -105,7 +122,9 @@ public class EmployeeDao implements SqlDao<Employee> {
 
 		return lists;
 	}
-
+	
+	
+	
 	private Employee getEmployee(ResultSet rs) throws SQLException {
 		int empno = rs.getInt(1);
 		String empname = rs.getString(2);

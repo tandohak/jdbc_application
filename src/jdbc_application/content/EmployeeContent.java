@@ -13,9 +13,11 @@ import jdbc_application.jdbc.dto.Department;
 import jdbc_application.jdbc.dto.Employee;
 import jdbc_application.jdbc.dto.Title;
 import jdbc_application.service.EmployeeService;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class EmployeeContent extends JPanel {
+public class EmployeeContent extends JPanel implements ActionListener {
 
 	private TextFiledComponent pEmpNo;
 	private TextFiledComponent pEmpName;
@@ -34,18 +36,21 @@ public class EmployeeContent extends JPanel {
 
 		pEmpName = new TextFiledComponent("사원명");
 		add(pEmpName);
-
-		pTitle = new ComboBoxComponent<Title>("직책");
-		add(pTitle);
+		
+		pDno = new ComboBoxComponent<Department>("부서번호");
+		pDno.getComboBox().addActionListener(this);
+		add(pDno);
+		
 
 		pManager = new ComboBoxComponent<Employee>("직속상사");
 		add(pManager);
 
 		pSalary = new SpinnerComponent("급여");
 		add(pSalary);
-
-		pDno = new ComboBoxComponent<Department>("부서번호");
-		add(pDno);
+		
+		pTitle = new ComboBoxComponent<Title>("직책");
+		add(pTitle);
+		
 
 		addItemDno();
 		addItemManager();
@@ -54,7 +59,6 @@ public class EmployeeContent extends JPanel {
 	}
 
 	private void addItemDno() {
-
 		List<Department> lists = service.selectDepartmentListAll();
 		Vector<Department> item = new Vector<>(lists);
 		
@@ -63,12 +67,17 @@ public class EmployeeContent extends JPanel {
 	}
 
 	private void addItemManager() {
-
-		List<Employee> lists = service.selectEmployeeByAll();
+		List<Employee> lists = service.selectEmployeeByDno(pDno.getSelectedItem());
 		Vector<Employee> item = new Vector<>(lists);
 		
 		pManager.setComboBoxModel(item);
-
+	}
+	
+	private void setItemManager(Department dept){
+		List<Employee> lists = service.selectEmployeeByDno(dept);
+		Vector<Employee> item = new Vector<>(lists);
+		
+		pManager.setComboBoxModel(item);
 	}
 
 	private void addItemTitle() {
@@ -97,4 +106,11 @@ public class EmployeeContent extends JPanel {
 		pSalary.isEmptyCheck();
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == pDno.getComboBox()) {
+		
+			setItemManager(pDno.getSelectedItem());
+		}
+	}
+	
 }
