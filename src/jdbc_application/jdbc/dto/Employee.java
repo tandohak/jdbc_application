@@ -104,8 +104,10 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return String.format("%s, %s, %s, %s, %s, %s]", empno, empname,
-				title.getTitleName(), manager.getEmpname(), salary, dno.getDeptName());
+		return String.format("%s(%s)", empname, empno);
 	}
 	
+	public Object[] toArray(){
+		return new Object[]{empno,empname,title,manager,salary,dno};
+	}
 }

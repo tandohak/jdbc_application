@@ -1,12 +1,20 @@
 package jdbc_application.list;
 
+import java.util.List;
+
 import javax.swing.SwingConstants;
 
 import jdbc_application.jdbc.dto.Department;
+import jdbc_application.service.DepartmentService;
 
 @SuppressWarnings("serial")
 public class ListDepartment extends AbstractList {
+	private DepartmentService service;	
 	
+	public ListDepartment(DepartmentService service) {
+		this.service = service;
+	}
+
 	@Override
 	protected void setAlignWidth() {
 		setCellWidth(100, 150, 50);
@@ -22,11 +30,13 @@ public class ListDepartment extends AbstractList {
 	
 	@Override
 	protected Object[][] getData() {
-		Object[][] datas = {
-				{1, "개발" ,10},
-				{2, "인사", 27},
-				{3, "마케팅", 30}				
-		};
+		List<Department> lists = service.selectDepartmentListAll();
+		Object[][] datas = new Object[lists.size()][];
+		
+		for(int i=0; i<lists.size(); i++){
+			datas[i] = lists.get(i).toArray();
+		}
+		
 		return datas;		
 	}
 

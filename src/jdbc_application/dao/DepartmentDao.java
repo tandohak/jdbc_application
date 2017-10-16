@@ -103,5 +103,6 @@ public class DepartmentDao implements SqlDao<Department> {
 		int floor = rs.getInt(3);
 		return new Department(deptNo, deptName, floor);
 	}
+	
 
 }

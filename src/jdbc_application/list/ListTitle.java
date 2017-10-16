@@ -1,10 +1,18 @@
 package jdbc_application.list;
 
+import java.util.List;
+
 import javax.swing.SwingConstants;
 
 import jdbc_application.jdbc.dto.Title;
+import jdbc_application.service.TitleService;
 
 public class ListTitle extends AbstractList {
+	private TitleService service;
+	
+	public ListTitle(TitleService service) {
+		this.service = service;
+	}
 
 	@Override
 	protected void setAlignWidth() {
@@ -19,7 +27,13 @@ public class ListTitle extends AbstractList {
 
 	@Override
 	protected Object[][] getData() {
-		Object[][] data = {{1,"사장"},{2,"부장"}};
+		List<Title> lists = service.selectTitleByAll();
+		Object[][] data = new Object[lists.size()][];
+		
+		for(int i=0; i<lists.size(); i++){
+			data[i] = lists.get(i).toArray();
+		}
+		
 		return data;
 	}
 

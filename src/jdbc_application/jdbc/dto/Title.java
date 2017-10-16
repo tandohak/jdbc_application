@@ -14,7 +14,6 @@ public class Title {
 	private String titleName;
 	
 	public Title() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Title(int titleNo, String titleName) {
@@ -36,5 +35,9 @@ public class Title {
 
 	public void setTitleName(String titleName) {
 		this.titleName = titleName;
+	}
+
+	public Object[] toArray() {
+		return new Object[]{titleNo,titleName};
 	}	
 }
