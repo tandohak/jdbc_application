@@ -72,13 +72,6 @@ public class EmployeeContent extends JPanel implements ActionListener {
 		
 		pManager.setComboBoxModel(item);
 	}
-	
-	private void setItemManager(Department dept){
-		List<Employee> lists = service.selectEmployeeByDno(dept);
-		Vector<Employee> item = new Vector<>(lists);
-		
-		pManager.setComboBoxModel(item);
-	}
 
 	private void addItemTitle() {
 		List<Title> lists = service.selectTitleByAll();
@@ -109,7 +102,7 @@ public class EmployeeContent extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == pDno.getComboBox()) {
 		
-			setItemManager(pDno.getSelectedItem());
+			addItemManager();
 		}
 	}
 	
