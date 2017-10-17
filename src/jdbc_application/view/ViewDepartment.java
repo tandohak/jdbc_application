@@ -1,10 +1,9 @@
 package jdbc_application.view;
 
-import java.awt.event.ActionEvent;
-
 import jdbc_application.content.AbstractContent;
 import jdbc_application.content.DepartmentContent;
 import jdbc_application.jdbc.dto.Department;
+import jdbc_application.jdbc.dto.Title;
 import jdbc_application.list.AbstractList;
 import jdbc_application.list.ListDepartment;
 import jdbc_application.service.DepartmentService;
@@ -35,6 +34,23 @@ public class ViewDepartment extends AbstractView {
 	@Override
 	protected void createService() {
 		ds = new DepartmentService();
+	}
+
+	@Override
+	protected void InsertContentAction(Object content) {
+		ds.insertDepartment((Department)content);
+		
+	}
+
+	@Override
+	protected void deleteContent(Object item) {
+		ds.deleteContent((Department)item);
+		
+	}
+
+	@Override
+	protected void updateContent(Object item) {
+		ds.updateDepartment((Department)item);
 	}
 
 	

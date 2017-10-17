@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import jdbc_application.dao.SqlDao;
 import jdbc_application.dao.TitleDao;
+import jdbc_application.jdbc.dto.Department;
 import jdbc_application.jdbc.dto.Title;
 
 public class TitleService {
@@ -28,8 +29,8 @@ public class TitleService {
 	
 	public void updateTitle(Title title){
 		try {
-			titleDao.insertItem(title);
-			showMessage("삭제 완료");	
+			titleDao.updateItem(title);
+			showMessage("업데이트 완료");	
 		} catch (SQLException e) {
 			showMessage(e.getMessage());
 			e.printStackTrace();
@@ -57,6 +58,16 @@ public class TitleService {
 		}
 		
 		return null;
+	}
+	
+	public void deleteContent(Title item){
+		try {
+			titleDao.deleteItem(item);
+			showMessage("삭제 완료");		
+		} catch (SQLException e) {
+			showMessage(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	private void showMessage(String msg) {

@@ -115,6 +115,17 @@ public class EmployeeService {
 
 		return null;
 	}
+	
+	public void deleteContent(Employee employee){
+		try {
+			empDao.deleteItem(employee);
+			showMessage("삭제 완료");		
+		} catch (SQLException e) {
+			showMessage(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 
 	private void showMessage(String msg) {
 		JOptionPane.showMessageDialog(null, msg);

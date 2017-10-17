@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.SwingConstants;
 
 import jdbc_application.jdbc.dto.Department;
+import jdbc_application.jdbc.dto.Employee;
 import jdbc_application.service.DepartmentService;
 
 @SuppressWarnings("serial")
@@ -50,5 +51,9 @@ public class ListDepartment extends AbstractList {
 		
 		return new Department(deptNo, deptName, floor);
 	}
-
+	
+	@Override
+	public Department getSearchItem(int itemNo) {
+		return service.selectDepartmentByNo(new Department(itemNo));
+	}
 }

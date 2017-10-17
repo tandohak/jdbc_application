@@ -72,6 +72,11 @@ public class EmployeeContent extends AbstractContent<Employee> implements Action
 	private void addItemManager() {
 		List<Employee> lists = service.selectEmployeeByDno(pDno.getSelectedItem());
 		Vector<Employee> item = new Vector<>(lists);
+		Employee boss = new Employee(4377,"이성래");
+		
+		if(!item.equals(boss)){
+			item.add(boss);
+		}
 		
 		pManager.setComboBoxModel(item);
 	}
@@ -132,6 +137,34 @@ public class EmployeeContent extends AbstractContent<Employee> implements Action
 		pManager.setSelectedIndex(0);
 		pSalary.setSpinValue(1500000);
 		pTitle.setSelectedIndex(0);		
+	}
+
+
+	@Override
+	public void setEnabled(boolean isOk) {
+		if(!isOk){
+			pEmpNo.getTextField().setEnabled(false);
+			pEmpName.getTextField().setEnabled(false);
+			pDno.getComboBox().setEnabled(false);
+			pManager.getComboBox().setEnabled(false);
+			pSalary.getSpinner().setEnabled(false);
+			pTitle.getComboBox().setEnabled(false);
+			
+			return;
+		}
+		
+		pEmpNo.getTextField().setEnabled(true);
+		pEmpName.getTextField().setEnabled(true);
+		pDno.getComboBox().setEnabled(true);
+		pManager.getComboBox().setEnabled(true);
+		pSalary.getSpinner().setEnabled(true);
+		pTitle.getComboBox().setEnabled(true);		
+	}
+	
+	@Override
+	public void changeContent(Object content) {
+		setContent((Employee)content);
+		pEmpNo.getTextField().setEnabled(false);
 	}
 	
 }

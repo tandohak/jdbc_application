@@ -26,10 +26,20 @@ public class DepartmentService {
 		}
 	}
 	
-
-	public void deleteDepartment(Department dept){
+	public void updateDepartment(Department dept){
 		try {
-			deptDao.deleteItem(dept);
+			deptDao.updateItem(dept);
+			showMessage("수정완료");			
+		} catch (SQLException e) {
+			showMessage(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+
+	public void deleteContent(Department item){
+		try {
+			deptDao.deleteItem(item);
 			showMessage("삭제 완료");		
 		} catch (SQLException e) {
 			showMessage(e.getMessage());
@@ -46,6 +56,8 @@ public class DepartmentService {
 		}
 		return null;
 	}
+	
+	
 	
 	public List<Department> selectDepartmentListAll(){
 		try {

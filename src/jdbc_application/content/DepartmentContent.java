@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.GridLayout;
 import jdbc_application.common.TextFiledComponent;
 import jdbc_application.jdbc.dto.Department;
+import jdbc_application.jdbc.dto.Title;
 
 public class DepartmentContent extends AbstractContent<Department> {
 
@@ -53,6 +54,26 @@ public class DepartmentContent extends AbstractContent<Department> {
 		pDeptNo.setTextValue("");
 		pDeptName.setTextValue("");
 		pFloor.setTextValue("");	
+		
+	}
+
+	@Override
+	public void changeContent(Object content) {
+		setContent((Department)content);
+		pDeptNo.getTextField().setEnabled(false);
+	}
+
+	@Override
+	public void setEnabled(boolean isOk) {
+		if(!isOk){
+			pDeptNo.getTextField().setEnabled(false);
+			pDeptName.getTextField().setEnabled(false);
+			pFloor.getTextField().setEnabled(false);
+			return;
+		}
+		pDeptNo.getTextField().setEnabled(true);
+		pDeptName.getTextField().setEnabled(true);
+		pFloor.getTextField().setEnabled(true);
 		
 	}
 }

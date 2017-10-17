@@ -12,5 +12,8 @@ public abstract class AbstractContent<T> extends JPanel {
 	public abstract void isEmptyCheck() throws Exception;
 	
 	public abstract void clear();
-
+	
+	public abstract void setEnabled(boolean isOk);
+	
+	public abstract void changeContent(Object content);
 }

@@ -69,7 +69,13 @@ public class ListEmployee extends AbstractList {
 	public Object getSelectedItem() {
 		int seletedIndex = table.getSelectedRow();
 		int empNo = (int) table.getValueAt(seletedIndex, 0);
+		
 		return service.selectEmployeeByNo(new Employee(empNo));
+	}
+	
+	@Override
+	public Employee getSearchItem(int itemNo) {
+		return service.selectEmployeeByNo(new Employee(itemNo));
 	}
 
 }

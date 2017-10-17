@@ -1,6 +1,8 @@
 package jdbc_application.list;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
 import java.awt.BorderLayout;
 import java.util.Vector;
 
@@ -26,7 +28,11 @@ public abstract class AbstractList extends JPanel {
 		
 //		loadData();
 	}
-
+	
+	public void setPopupMenu(JPopupMenu menu){
+		table.setComponentPopupMenu(menu);
+	}
+	
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel(getData(), getColumnNames());
 		table.setModel(model);
@@ -59,6 +65,8 @@ public abstract class AbstractList extends JPanel {
 	protected abstract String[] getColumnNames();
 
 	protected abstract Object[][] getData();
+	
+	public abstract Object getSearchItem(int itemNo);
 	
 	public abstract Object getSelectedItem();
 

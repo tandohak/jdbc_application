@@ -46,4 +46,9 @@ public class ListTitle extends AbstractList {
 		return new Title(titleNo, titleName);
 	}
 
+	@Override
+	public Title getSearchItem(int itemNo) {
+		return service.selectTitleByNo(new Title(itemNo));
+	}
+
 }
