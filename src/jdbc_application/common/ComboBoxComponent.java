@@ -56,4 +56,12 @@ public class ComboBoxComponent<T> extends JPanel {
 	public void setComboBox(JComboBox<T> comboBox) {
 		this.comboBox = comboBox;
 	}
+
+
+	public void isEmptyCheck() throws Exception{
+		if (comboBox.getSelectedIndex()==-1){
+			comboBox.requestFocus();
+			throw new Exception("선택 하지 않음");
+		}
+	}
 }

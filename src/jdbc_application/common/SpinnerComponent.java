@@ -42,4 +42,8 @@ public class SpinnerComponent extends JPanel {
 	public int getSpinerValue() {		
 		return (int)spinner.getValue();
 	}
+
+	public void setSpinValue(int value) {
+		spinner.setValue(value);
+	}
 }

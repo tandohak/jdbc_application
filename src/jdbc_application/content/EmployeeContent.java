@@ -15,9 +15,10 @@ import jdbc_application.jdbc.dto.Title;
 import jdbc_application.service.EmployeeService;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
-public class EmployeeContent extends JPanel implements ActionListener {
+public class EmployeeContent extends AbstractContent<Employee> implements ActionListener {
 
 	private TextFiledComponent pEmpNo;
 	private TextFiledComponent pEmpName;
@@ -46,17 +47,19 @@ public class EmployeeContent extends JPanel implements ActionListener {
 		add(pManager);
 
 		pSalary = new SpinnerComponent("급여");
+		pSalary.getSpinner().setModel(new SpinnerNumberModel(new Integer(1500000), new Integer(1500000), null, new Integer(100000)));
 		add(pSalary);
 		
 		pTitle = new ComboBoxComponent<Title>("직책");
 		add(pTitle);
 		
-
+		
 		addItemDno();
 		addItemManager();
 		addItemTitle();
 
 	}
+	
 
 	private void addItemDno() {
 		List<Department> lists = service.selectDepartmentListAll();
@@ -65,13 +68,14 @@ public class EmployeeContent extends JPanel implements ActionListener {
 		pDno.setComboBoxModel(item);
 
 	}
-
+	
 	private void addItemManager() {
 		List<Employee> lists = service.selectEmployeeByDno(pDno.getSelectedItem());
 		Vector<Employee> item = new Vector<>(lists);
 		
 		pManager.setComboBoxModel(item);
 	}
+
 
 	private void addItemTitle() {
 		List<Title> lists = service.selectTitleByAll();
@@ -81,7 +85,8 @@ public class EmployeeContent extends JPanel implements ActionListener {
 		pTitle.setComboBoxModel(item);
 
 	}
-
+	
+	@Override
 	public Employee getContent() {
 		int empno = Integer.parseInt(pEmpNo.getTextValue());
 		String empname = pEmpName.getTextValue();
@@ -92,18 +97,41 @@ public class EmployeeContent extends JPanel implements ActionListener {
 
 		return new Employee(empno, empname, title, manager, salary, dno);
 	}
-
+	@Override
 	public void isEmptyCheck() throws Exception {
 		pEmpNo.isEmptyCheck();
 		pEmpName.isEmptyCheck();
+		pDno.isEmptyCheck();
+		pManager.isEmptyCheck();
 		pSalary.isEmptyCheck();
+		pTitle.isEmptyCheck();
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == pDno.getComboBox()) {
-		
 			addItemManager();
 		}
+	}
+
+	@Override
+	public void setContent(Employee content) {
+		pEmpNo.setTextValue(content.getEmpno()+"");
+		pEmpName.setTextValue(content.getEmpname());
+		pDno.setSelectedItem(content.getDno());
+		pManager.setSelectedItem(content.getManager());
+		pSalary.setSpinValue(content.getSalary());
+		pTitle.setSelectedItem(content.getTitle());
+		
+	}
+
+	@Override
+	public void clear() {
+		pEmpNo.setTextValue("");
+		pEmpName.setTextValue("");
+		pDno.setSelectedIndex(0);
+		pManager.setSelectedIndex(0);
+		pSalary.setSpinValue(1500000);
+		pTitle.setSelectedIndex(0);		
 	}
 	
 }
